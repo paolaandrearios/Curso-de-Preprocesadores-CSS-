@@ -1,0 +1,78 @@
+.footer--principal {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin-top: 20px;
+  padding: 0 20px 20px 20px;
+  background-color: $color-primario;
+  @include media(desktop-s){
+    position: relative;
+    flex-direction: row;
+    height: 160px;
+    color: $color-claro;
+  } 
+  @include media(mobile-only){
+		margin-bottom: 0;
+		padding-bottom: 0;
+		img {
+			width: 95%;
+		}
+  }
+}
+
+.nav--footer ul {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
+  padding-left: 0;
+  li {
+    font-size: 14px;
+    list-style:none;
+    margin-right: 50px;
+    @include media(desktop-s){
+      @include font-size(18px);
+    }
+  }
+  a {
+    color: get-opacity($color-claro, .40);
+    @include titulos($Fuente2);
+    @include media(desktop-s){
+      color: $color-claro;
+    }
+  }
+  @include media(desktop-s){
+    display: flex;
+    flex-direction: row;
+    padding-top: 35px;
+  }  
+}
+.nav--social {
+  @include font-size(14px);
+  @include media(desktop-s){
+    margin-left: auto;
+  }
+   ul {
+    display:flex;
+    padding-top: 35px;
+  }
+  li {
+    list-style:none;
+    margin-right: 10px;
+    color:get-opacity($color-claro, .40);
+    @include media(desktop-s){
+      display: flex;
+      flex-direction: row;
+      margin-right: 50px;
+      color: $color-claro;
+      @include font-size(18px);
+    }
+  }
+  a {
+    text-align: center;
+    color: get-opacity($color-claro, .40);
+    @include titulos($Fuente2); 
+    @include media(desktop-s){
+      color: $color-claro;
+    } 
+  }  
+}

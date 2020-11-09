@@ -1,0 +1,510 @@
+/* Curso de Preprocesadores CSS
+
+
+SELECTORES DE CSS
+
+Los selectores nos sirven para seleccionar los diferentes elementos en una página web y aplicar estilos
+
+Existen los siguientes tipos de selectores:
+
+Selector universal * Sirve para agregar estilos a todos los elementos de la página. Normalmente se utiliza para hacer “reset” de estilos.
+Selector etiqueta. Aplica estilos a todos los elementos de ese tipo (p, h1, header etc.)
+Selector id. Aplica estilos a un elemento único con ese Id, se recomienda hacer buen uso de este selector.
+Selector clase. Aplica estilos a todos los elementos con esa clase (el que más vas a usar).
+Selector anidado. Aplica estilos a un elementos descendientes de otros elementos (no necesario que sea hijo directo).
+Selector hijo >. Aplica estilos a los elementos que sean hijos directos de otros.
+Selector adyacente +. Aplica estilos al elemento adyacente.
+Selector de atributo input[type=“number”]. Aplica estilos al elemento con el atributo especificado.
+La prioridad de un selector se determina por la suma de su contenido:
+
+ID = 100
+Clase = 10
+Etiqueta = 1
+A mayor la suma, mayor prioridad.
+
+!important es un valor especial tiene un valor de un millón, nunca lo uses a menos que sea tu única opción como cuando no tienes acceso al código fuente.
+
+/* Selector universal */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Selector de etiqueta */
+p {
+  color: blue;
+}
+h1,h2,h3,h4,h5 {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+}
+
+/* Selector anidado (Para especificar selectores dentro de otros)*/
+span {
+  color: black;
+}
+p span {
+  color: red;
+}
+
+/* Selector de ID (Debe ser único en HTML, no se puede repetir)*/
+#verde {
+  color: green;
+}
+
+/* Selector de clase (Puede estar presente en varios elementos HTML, es el más usado) */
+.verde {
+  color: green;
+}
+
+/* Selector de hijos (Se aplica para hijos directos) */
+p > span {
+  color: red;
+}
+span {
+  color: green;
+}
+
+/* Selector adyacente (Se aplica si esta seguido del elemento especificado, en este caso se aplica el color rojo al elemento h2 si está después de otro elemento h2 y así sucesivamente se puede sumar más elementos) */
+h2 {
+  color: black;
+}
+h2 + h2 {
+  color: red;
+}
+
+/* Selector de aributos */
+input[type='number'] {
+  border: black;
+}
+input[type='email'] {
+  border: red;
+}
+/*
+!important = 1000000
+ID = 100 puntos
+Clase = 10 puntos
+Etiqueta = 1 punto
+Los puntajes son acumulables
+*/
+
+
+span {
+  color: black;
+} /* 1 punto*/
+h2.especial span {
+  color: red;
+} /* 12 puntos */
+h2#superespecial span {
+  color: green;
+} /* 102 puntos */
+
+
+h2.special span {
+  color: red;
+} /* 12 puntos (Gana) */
+.especial span {
+  color: black;
+} /* 11 puntos */
+
+span {
+  color: black !important;
+} /* 1000000 puntos (Por buenas prácticas no es recomendable usarlo ya que es muy difícil sobrescribirlo, solo se usa en caso que no se tenga acceso al código CSS y se necesite sobrescribir un valor. "Por cada uso de !important muere un oso en el ártico :(")*/
+
+ */
+
+ /* Introducción a BEM
+
+ BEM es la metodología que vamos a usar a lo largo del curso. El objetivo de BEM es dividir lógicamente las piezas de las que se compone una web.
+ 
+ BEM establece que debemos usar clases para nuestro selectores, clases que se dividen en:
+ 
+ .bloque__element--modificador{}
+ Bloques. Los bloques son nuestros contenedores más grandes que a su vez contienen elementos u otros bloques.
+ 
+ .bloque{}
+ .galeria{}
+ Elementos. Los elementos siempre forman parte de un bloque, normalmente son los botones, textos, imágenes etc.
+ 
+ .bloque__elemento{}
+ .galeria__foto{}
+ Modificadores. Los modificadores se usan para establecer estilos diferentes a un mismo bloque o elemento.
+ 
+ .bloque--modificador{}
+ .galeria__foto--circular{}
+ <h3>Ventajas de BEM</h3>
+ Menos repetición
+ Los bloques tienen Independencia absoluta
+ Mejoría en la herencia multiple
+ Evitar la especificidad (no se sentirá la necesidad de usar !important nunca más)
+
+ */
+
+/* ----------------------------------------------------------------------------------------
+Introducción a Pug
+
+Pug es un generador de templates implementado con Javascript que nos permite escribir un pseudocódigo limpio y fácil de leer que será compilado a HTML.
+
+Si quieren compilar los archivos Pug primero necesitan instalar NodeJS.
+Luego desde la terminal instalar pug :
+
+>>npm install pug-cli -g
+y ya pueden compilar desde visual studio code
+
+
+pug archivo.pug  
+ compila una sola vez
+
+pug -w archivo.pug
+ compila cada vez que el archivo cambia, genera un HTML minificado
+
+pug -w --pretty archivo.pug
+ compila un HTML identado
+
+pug directorio
+ compila todos los archivos dentro de ese directorio
+----------------------------------------------------------------------------------------
+Para aquellos que tengan windows y la consola nos les deja ejecutar los scripts de pug.
+
+Tienen desabilitar las restriciones de de ejecucion de script en la maquina.
+
+1.Abrir el shell de windows como administradores
+2.Ejecutar los siguientes comandos siguiente comando
+
+~
+3.(Opcional para visualizar los permiso)
+
+Get-ExecutionPolicy -list
+4.Introducir este comando y acpetar los cambios
+
+Set-ExecutionPolicy -Scope CurrentUser unrestricted
+Dependienco del idioma enq ue tengan el pc
+
+si o yes 
+ -----------------------------------------------------
+ sintaxis para declarar una variable en pug.
+
+-var titulo = "Subtítulo Principal"
+-var titulos = ["Título Principal", "Subtitulo 1", "Subtitulo 2", "Subtitulo 3"]
+formas de llamar a las variables y los arreglos
+
+h2= titulo
+h2 #{titulo}
+h2 #{titulos[0]} (obtenemos el primer elemento de nuestro arreglo)
+h2 #{titulos[0][1]} (Obtenemos el primer elemento de nuestro arreglo y a la vez el elemento
+que está en la posición 1)
+--------------------------------------------------------------
+Condicionales y Loops
+
+Un condicional nos permite evaluar cierta condición y bifurcar entre dos caminos dependiendo de si se cumple o no.
+
+Un loop es un fragmento de código que va a ejecutar de forma repetitiva hasta que cumpla una condición.
+
+** para comentar en pug, crean el comentario en su propia linea y ponen lo siguiente
+// comentario : saldra en pug y html
+//- comentario : saldra solo en pug
+
+Loop
+
+<ul
+			each titulo in titulos
+        li=titulo>
+
+Condicionales
+
+<if usuario
+				a hola #{usuario}
+			else
+        a.boton Registro>
+
+------------------------------------------------
+Mixins
+
+Su finalidad es ofrecer una funcionalidad que pueda ser reutilizada en otras clases pero que no está pensada para usarse de forma autónoma. Nos permite crear bloques reusables de código que cambian su resultado dependiendo del parámetro que enviemos.
+
+Con los mixin logramos escribir menos código, produciendo un código más claro, más expresivo y sobre todo más fácil de mantener.
+ ------------------------------------------------------
+ 
+ Includes y Extends
+
+Pug funciona como un generador de plantillas, dos de sus principales características para lograrlo son Includes y Extends.
+
+Los includes sirven para incluir un archivo de extensión *.pug dentro de otro.
+
+Los extends te permiten adicionar bloques de código a una página.
+ 
+********************************************************************************************
+****************************************************************************
+¨*****************************************************
+
+PREPROCESADORES CSS
+
+Introducción a Less
+Less es un preprocesador para CSS que nos permite trabajar hojas de estilo con funcionalidades de un lenguaje de programación.
+
+Si quieren compilar less desde la consola corran el comando:
+
+npm install -g less
+y luego adentro de la carpeta css corran el comando
+
+lessc platzigames.less styles.css
+Ahí les crea un archivo styles.css compilando el código less que haya. 
+
+-------------------------------------------------
+Variables
+En las variables almacenamos datos que se puede reutilizar en todas nuestras hojas de estilos. Así evitamos tener que escribir lo mismo una y otra vez cuando se realiza algún cambio, ya que sólo vamos a modificar el valor de la variable y se aplicará a todos los lugares donde sea usada.
+
+Comúnmente almacenamos en variables las guías de estilo de nuestro sitio, como pueden ser los colores y fuentes.
+
+CSS también tiene el uso de variables de forma nativa. y se declaran de la siguiente manera:
+
+:root {
+--color-primario: #333333;
+--color-claro: #FFFFFF;
+--color-secundario: #8841da;
+--color-variacion: #012179;
+--Fuente1: 'Lato', sans-serif;
+--Fuente2: 'Oswald', sans-serif
+};```
+
+Y se usan asi: 
+
+
+```p {
+color: var(--colorprimario);
+} 
+
+
+Funciones
+La diferencia entre mixins y funciones es que las funciones por general hacen cálculos y regresan un resultado que es usado como valor de alguna propiedad.
+
+Las funciones en Less ya están prediseñadas.
+ 
+Mixins
+Su finalidad es ofrecer una funcionalidad que pueda ser reutilizada en otras clases pero que no está pensada para usarse de forma autónoma. Nos permite crear bloques reusables de código que cambian su resultado dependiendo del parámetro que enviemos.
+
+Con los mixins logramos escribir menos código, produciendo un código más claro, más expresivo y sobre todo más fácil de mantener.
+
+********************************************************************************************
+****************************************************************************
+¨*****************************************************
+
+Introducción a Sass
+
+Sass (Syntactically Awesome StyleSheets) es una extensión de CSS que añade características muy potentes y elegantes a este lenguaje de estilos.
+
+Sass es basado en Ruby a diferencia de Less y Stylus que se basan en Javascript.
+
+
+Para los que están acostumbrados a usar la terminal pueden hacer lo siguiente:
+
+<h1>Instalar sass</h1>
+npm install -g sass
+<h1>Compilar de sass a css</h1>
+sass --watch ejercicio-sass.scss ejercicio-sass.css
+
+
+Variables
+En las variables almacenamos datos que se puede reutilizar en todas nuestras hojas de estilos. Así evitamos tener que escribir lo mismo una y otra vez cuando se realiza algún cambio, ya que sólo vamos a modificar el valor de la variable y se aplicará a todos los lugares donde sea usada.
+
+Comúnmente almacenamos en variables las guías de estilo de nuestro sitio, como pueden ser los colores y fuentes.
+
+
+En sass hay dos maneras de escribir la sintaxis, la primera es con la extensión “.sass” que se obvia los “{ }” y el " ; ", y la otra es con la extensión “.scss” que es igual que escribir css con “{ }” y " ; " .
+.sass es la manera vieja.
+.scss es la nueva manera.
+
+A diferencia de Less, donde las variables inician con un arroba (@), en Sass las variables inician con un símbolo de pesos, como en PHP ($).
+
+Variables Less = @
+Variables SASS = $
+
+
+Imports y Extends
+
+Import nos permite escribir código modular separando en diferentes archivos para después importarlos todos en uno solo y tener una base código mucho más ordenada.
+
+Extends sirve para insertar los estilos de un selector en otro.
+
+.perfil__minibio {
+  margin: 0 auto;
+  padding-top: 20px; 
+  h2 {
+    @extend .perfil__nombre;
+  }
+  h3 {
+    @extend .perfil__titulo;  
+  }
+}
+
+*en el caso anterior, al h2 y h3 de .perfil__minibio, se le copia la configuración del css de las clases .perfil__nombre y .perfil__titulo respectivamente
+
+
+Mixins
+
+Su finalidad es ofrecer una funcionalidad que pueda ser reutilizada en otras clases pero que no está pensada para usarse de forma autónoma. Nos permite crear bloques reusables de código que cambian su resultado dependiendo del parámetro que enviemos.
+
+Con los mixin logramos escribir menos código, produciendo un código más claro, más expresivo y sobre todo más fácil de mantener.
+
+Funciones
+
+La diferencia entre mixins y funciones es que las funciones por general hacen cálculos y regresan un resultado que es usado como valor de alguna propiedad.
+
+Mixins: Todas las declaraciones CSS que contenga, se aplicarán donde el mixin sea implementado.
+
+Funciones: Solo lo que retorne la función, es lo que se aplicará donde sea implementado.
+
+Condicionales y Loops
+Un condicional nos permite evaluar cierta condición y bifurcar entre dos caminos dependiendo de si se cumple o no.
+
+Un loop es un fragmento de código que va a ejecutar de forma repetitiva hasta que cumpla una condición.
+
+* Acerca del Loop, la variable creada $header representa a los ‘h’ (h1, h2, h3) y la variable creada $size representa a sus valores de los ‘h’(30px, 25px, 20px). Luego se invoca a la variable $header como una función, que dice que a cada ‘h’ del header dependiedo si es h1, h2 o h3 se le cambiara el font-size a su valor respectivo, si el $header es un h1 se le pondrá 30px y así respectivamente y a cada ‘h’ del $header se le quita el margin. En sí le puedes poner cualquier nombre a la variable $header y a la variable $size y igual funcionará es solo para representar los ‘h’ y sus valores (30px). 
+
+loop
+@each $header, $size in (h1: 30px, h2: 25px, h3:20px){
+  #{$header}{
+    font-size:$size;
+    margin: 0;
+  }
+}
+
+condicional
+@mixin titulos($fuente){
+  @if $fuente == $Fuente1 {
+    font-family: $Fuente1;
+  } @else {
+    font-family: $Fuente2;
+    text-transform: uppercase;
+  }
+}
+
+********************************************************************************************
+****************************************************************************
+¨*****************************************************
+
+Introducción a Stylus
+
+Es el preprocesador CSS más reciente de los tres. Fue creado por TJ Holowaychuk (ex programador de Node.js) y escrito en JADE y Node.js.
+
+Para los que quieran compilar desde la terminal hacemos lo siguiente:
+
+<h3>Instalar Stylus en la terminal</h3>
+npm install -g stylus
+<h3>Compilar de Stylus a Css [deben estar en la carpeta /css]</h3>
+stylus -w ejercicio-stylus.styl
+-w hace que espere los cambios para poder compilar automaticamente.
+  
+Aqui les dejo documentación sobre Stylus
+https://stylus-lang.com/
+
+Variables
+En las variables almacenamos datos que se puede reutilizar en todas nuestras hojas de estilos. Así evitamos tener que escribir lo mismo una y otra vez cuando se realiza algún cambio, ya que sólo vamos a modificar el valor de la variable y se aplicará a todos los lugares donde sea usada.
+
+Comúnmente almacenamos en variables las guías de estilo de nuestro sitio, como pueden ser los colores y fuentes.
+
+En stylus no es necesario agregar los “:” para definir la propiedad…
+
+Fuente1 ='Lato', sans-serif
+Fuente2 = 'Oswald', sans-serif
+
+
+Mixin
+
+caja-sombra()
+  background-color: color-claro
+  box-shadow: 0px 20px 33px 0px rgba(0,0,0,0.20)
+  
+Funciones
+
+opacidad(color, cantidad)
+  alpha(color,cantidad)
+
+
+Al igual que en sass tenemos la función @extend que nos ayuda a implementar las propiedades de otro elemento:
+
+.message {
+  padding: 10px;
+  border: 1px solid #eee;
+}
+.warning {
+  @extend .message;
+  color: #E2E21E;
+}
+
+CONDICIONALES Y LOOPS
+
+titulos(fuente)
+  if fuente == Fuente1
+    font-family: Fuente1
+  else 
+    font-family: Fuente2
+    font-weight: 600
+    text-transform: uppercase
+
+for header in 3 2 1
+  h{header}
+    font-size: 35px - (5*header)
+    margin: 0
+
+****************************************************************************
+¨*****************************************************
+
+EJERCICIOS CON SASS
+
+Grid System con Sass
+Grid es una nueva característica de CSS que nos permite trabajar con layouts controlando sus filas y columnas de forma multidimensional. A diferencia de como se hace tradicionalmente con flex de forma unidimensional.
+
+https://css-tricks.com/browser-compatibility-css-grid-layouts-simple-sass-mixins/
+
+compatibilidad de navegador para Grid css layout con mixins de sass
+
+
+Mixins para manejo de fuentes responsivas
+
+@function calculateRem($size){
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+  line-height: calculateRem($size)*1.5; 
+}
+
+Funciones para media queries
+
+Usar media Queries mixin
+
+@mixin media ($breakpoint) {  
+
+  @if $breakpoint == tablet {  
+    @media only screen and (min-width: 768px) { @content; }  
+  }  
+  
+  @else if $breakpoint == desktop-s {  
+    @media only screen and (min-width: 992px) { @content; }  
+  } 
+
+  etcétera ....
+  
+  para incluirlo en los proyectos se haca así:
+  
+@include media(desktop-s){
+  height: 1200px;
+    width: 1300px;
+    margin: 0 auto;
+}
+
+🙌Aquí les dejo documentación de como usar queries sin el mixin de la clase
+http://thesassway.com/intermediate/responsive-web-design-in-sass-using-media-queries-in-sass-32
+📌siempre es mejor saber muchas formas de hacer lo mismo
+"con los mixins es mas rápido "👌
+
+reto
+https://github.com/aeruizmx/preprocesadores-css/commit/f8b928bbb5f90a4063fa306faed50c0c75422d02
+
+https://github.com/CrissUD/PlatziGames
+ ----------------------- */
+

@@ -1,0 +1,14 @@
+extend componentes/plantilla.pug 
+block contenidos
+	.contenido 
+		section.menu
+			h1 Menu
+			ul
+				each enlace in enlaces
+					li=enlace
+		section.texto
+			.texto__contenido
+					h2 #{titulos[0]}
+					p Lorem ipsum dolor sit amet consectetur adipisicing elit. In voluptas quos at alias delectus culpa nam veniam aliquam voluptate commodi reiciendis earum voluptatibus, quae tempore aperiam ullam quisquam accusamus ad?
+					p aliquam voluptate commodi reiciendis earum voluptatibus, quae tempore aperiam ullam quisquam accusamus ad? electus culpa nam veniam aliquam voluptate commodi reiciendis earum voluptatibus, quae tempore aperiam ullam quisquam accusamus ad?
+					a.boton Leer más
